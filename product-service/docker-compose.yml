@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.0.43
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: productdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/home/andre-garrido/Documents/Backend/Ecommerce/product-service/docker/mysql/init.sql
+      - mysql:/var/lib/mysql
+      - mysql:/var/log/mysql
+
+volumes:
+    mysql:
