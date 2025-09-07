@@ -29,4 +29,7 @@ public class Product {
 
     @Column(name = "price")
     private Double price;
+
+    public Product(long l, String productA, double v) {
+    }
 }

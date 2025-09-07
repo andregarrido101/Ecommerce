@@ -15,7 +15,7 @@ public class ProductController {
     private ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController() {
         this.productService = productService;
     }
 
@@ -27,5 +27,11 @@ public class ProductController {
     @GetMapping("/product/{id}")
     public @ResponseBody ProductResponse getProductById(@PathVariable("id") Long id) {
         return productService.getProductById(id);
+    }
+
+    // Test
+    @GetMapping("/test")
+    public String test() {
+        return "Product Service is up and running!";
     }
 }
