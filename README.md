@@ -1,3 +1,3 @@
 # Ecommerce
 
-![[architecture]](ecommerce.drawio.png)
+![[architecture]](ecommerce-architecture.drawio.png)
