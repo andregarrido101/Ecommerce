@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS customer (
 CREATE TABLE IF NOT EXISTS `order` (
     id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT,
-    product INT,
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     product_id INT,
     quantity INT DEFAULT 1,

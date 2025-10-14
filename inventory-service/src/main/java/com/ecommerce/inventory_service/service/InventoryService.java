@@ -2,23 +2,22 @@ package com.ecommerce.inventory_service.service;
 
 import com.ecommerce.inventory_service.entity.Product;
 import com.ecommerce.inventory_service.repository.ProductRepository;
-import com.ecommerce.inventory_service.repository.RoomRepository;
 import com.ecommerce.inventory_service.response.ProductInventoryResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class InventoryService {
 
     private final ProductRepository productRepository;
-    private final RoomRepository roomRepository;
 
     @Autowired
-    public InventoryService(final ProductRepository productRepository, final RoomRepository room1Repository) {
+    public InventoryService(final ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.roomRepository = room1Repository;
     }
 
     public List<ProductInventoryResponse> getAllProducts() {
@@ -43,5 +42,14 @@ public class InventoryService {
                 .price(product.getPrice())
                 .quantity(product.getQuantity())
                 .build();
+    }
+
+    public void updateProductQuantity(final Long productId, final Long quantity) {
+        final Product product = productRepository.findById(productId).orElse(null);
+        if (product != null) {
+            product.setQuantity(product.getQuantity() - quantity);
+            productRepository.saveAndFlush(product);
+            log.info("Updated product {} quantity to {}", productId, product.getQuantity());
+        }
     }
 }
