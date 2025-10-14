@@ -15,5 +15,5 @@ public class BookingResponse {
     private Long userId;
     private Long productId;
     private Long quantity;
-    private BigDecimal totalValue;
+    private BigDecimal totalPrice;
 }

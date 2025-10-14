@@ -15,5 +15,5 @@ public class BookingProduct {
     private Long productId;
     private Long quantity;
     private Double price;
-    private Double totalValue;
+    private Double totalPrice;
 }

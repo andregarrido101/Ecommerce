@@ -31,7 +31,7 @@ public class BookingService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public BookingResponse createReservation(final BookingRequest request) {
+    public BookingResponse createBooking(final BookingRequest request) {
         // Checar se o usuário existe
         final Customer customer = customerRepository.findById(request.getUserId()).orElse(null);
         System.out.println("Informação do usuário: " + customer);
@@ -56,7 +56,7 @@ public class BookingService {
                 .userId(bookingProduct.getUserId())
                 .productId(bookingProduct.getProductId())
                 .quantity(bookingProduct.getQuantity())
-                .totalValue(BigDecimal.valueOf(bookingProduct.getTotalValue()))
+                .totalPrice(BigDecimal.valueOf(bookingProduct.getTotalPrice()))
                 .build();
     }
 
@@ -65,7 +65,7 @@ public class BookingService {
                 .userId(customer.getId())
                 .productId(request.getProductId())
                 .quantity(request.getQuantity())
-                .totalValue(inventoryResponse.getPrice() * request.getQuantity())
+                .totalPrice(inventoryResponse.getPrice() * request.getQuantity())
                 .build();
     }
 }
