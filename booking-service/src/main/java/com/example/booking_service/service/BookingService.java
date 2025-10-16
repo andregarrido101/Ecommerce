@@ -33,7 +33,7 @@ public class BookingService {
 
     public BookingResponse createBooking(final BookingRequest request) {
         // Checar se o usuário existe
-        final Customer customer = customerRepository.findById(request.getUserId()).orElse(null);
+        final var customer = customerRepository.findById(request.getUserId()).orElseThrow();
         System.out.println("Informação do usuário: " + customer);
         if (customer == null) {
             throw new RuntimeException("User not found");

@@ -15,14 +15,12 @@ public class InventoryServiceRoutes {
     @Bean
     public RouterFunction<ServerResponse> inventoryRoutes() {
         return GatewayRouterFunctions.route("inventory-service")
-                .route(RequestPredicates.POST("/api/v1/inventory/products"),
+                .route(RequestPredicates.GET("/api/v1/inventory/products"),
                         HandlerFunctions.http("http://localhost:8080/api/v1/inventory/products"))
-                .route(RequestPredicates.path("/inventory/product/{productId}"),
-                        request -> forwardWithPathVariable(request, "productId",
-                                "http://localhost:8080/api/v1/inventory/product"))
-                .route(RequestPredicates.path("/inventory/product/{productId}"),
-                        request -> forwardWithPathVariable(request, "productId",
-                                "http://localhost:8080/api/v1/inventory/product"))
+
+                .route(RequestPredicates.GET("/api/v1/inventory/product/{productId}"),
+                        request -> forwardWithPathVariable(request,
+                                "productId", "http://localhost:8080/api/v1/inventory/product/"))
                 .build();
     }
 
@@ -30,6 +28,14 @@ public class InventoryServiceRoutes {
                                                           String pathVariableName,
                                                           String targetBaseUrl) throws Exception {
         String value  = request.pathVariable(pathVariableName);
+
+        if (!targetBaseUrl.endsWith("/")) {
+            targetBaseUrl += "/";
+        }
+
+        System.out.println("REQUEST HERE: " + request);
+        System.out.println(("TARGET URL: " + targetBaseUrl + value));
+
         return HandlerFunctions.http(targetBaseUrl + value).handle(request);
     }
 }

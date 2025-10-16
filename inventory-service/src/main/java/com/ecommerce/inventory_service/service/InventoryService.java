@@ -3,25 +3,23 @@ package com.ecommerce.inventory_service.service;
 import com.ecommerce.inventory_service.entity.Product;
 import com.ecommerce.inventory_service.repository.ProductRepository;
 import com.ecommerce.inventory_service.response.ProductInventoryResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class InventoryService {
 
     private final ProductRepository productRepository;
 
-    @Autowired
-    public InventoryService(final ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
     public List<ProductInventoryResponse> getAllProducts() {
         final List<Product> products = productRepository.findAll();
+
+        //System.out.println("TYPE OF PRODUCTS: " + products.getClass().getName());
 
         return products.stream().map(product -> ProductInventoryResponse.builder()
                 .id(product.getId())

@@ -14,6 +14,13 @@ import lombok.Setter;
 @Table(name = "product")
 public class Product {
 
+    public Product(String name, String description, Double price, Long quantity) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
