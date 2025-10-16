@@ -32,13 +32,13 @@ public class BookingService {
     }
 
     public BookingResponse createBooking(final BookingRequest request) {
-        // Checar se o usuário existe
+        // Check if user exist
         final var customer = customerRepository.findById(request.getUserId()).orElseThrow();
         System.out.println("Informação do usuário: " + customer);
         if (customer == null) {
             throw new RuntimeException("User not found");
         }
-        // Verificar se há quantidade suficiente
+        // Verify stock availability
         final InventoryResponse inventoryResponse = inventoryServiceClient.getInventory(request.getProductId());
         log.info("Resposta do serviço Inventory: {}", inventoryResponse);
 
@@ -46,7 +46,7 @@ public class BookingService {
             throw new RuntimeException("Quantidade insuficiente em estoque");
         }
 
-        // Criar booking
+        // Create booking
         final BookingProduct bookingProduct = createBookingProduct(request, customer, inventoryResponse);
         // Enviar booking para o Kafka
         kafkaTemplate.send("bookingTopic", bookingProduct);

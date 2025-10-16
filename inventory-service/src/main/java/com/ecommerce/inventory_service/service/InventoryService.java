@@ -19,8 +19,6 @@ public class InventoryService {
     public List<ProductInventoryResponse> getAllProducts() {
         final List<Product> products = productRepository.findAll();
 
-        //System.out.println("TYPE OF PRODUCTS: " + products.getClass().getName());
-
         return products.stream().map(product -> ProductInventoryResponse.builder()
                 .id(product.getId())
                 .name(product.getName())

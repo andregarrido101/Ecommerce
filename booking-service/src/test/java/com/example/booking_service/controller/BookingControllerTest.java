@@ -32,7 +32,6 @@ public class BookingControllerTest {
 
     @Test
     void shouldCreateBooking() throws Exception {
-        //BookingRequest bookingRequest = new BookingRequest(1L, 1L, 10L);
 
         BookingResponse BookingResponse = new BookingResponse(1L, 1L, 10L, new BigDecimal("100.00"));
 
